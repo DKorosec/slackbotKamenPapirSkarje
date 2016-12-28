@@ -14,14 +14,10 @@ app.get('/cool',(req,res)=>{
 app.post('/hi',(req,res,next)=>{
   var username = req.body.user_name;
   var json = {
-    text: 'hi '+username+' u a faggit!'
+    text: 'hi u a faggit!'
   };
 
-  if(username == "slackbot")
-  {
-    res.status(200).end();
-  }
-  else res.status(200).json(json);
+  res.status(200).json(json);
 });
 
 app.listen(app.get('port'), function() {
