@@ -1,5 +1,9 @@
 var express = require('express');
 var app = express();
+var bodyParser = require("body-parser");
+
+
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -12,12 +16,14 @@ app.get('/cool',(req,res)=>{
 });
 
 app.post('/hi',(req,res,next)=>{
-  //var username = req.body.user_name;
+  var username = req.body.user_name;
   var json = {
-    text: 'hi u a faggit!'
+    text: 'hi '+username+' u a faggit!'
   };
 
-  res.status(200).json(json);
+  if(username == "slackbot")
+    res.status(200).end();
+  else res.status(200).json(json);
 });
 
 app.listen(app.get('port'), function() {
