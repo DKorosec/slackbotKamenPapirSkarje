@@ -12,7 +12,7 @@ app.get('/cool',(req,res)=>{
 });
 
 app.post('/hi',(req,res,next)=>{
-  var username = req.body.user_name;
+  //var username = req.body.user_name;
   var json = {
     text: 'hi u a faggit!'
   };
