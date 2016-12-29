@@ -48,7 +48,7 @@ app.listen(app.get('port'), ()=>{
 
 function sendResponse(url,json)
 {
-  request.post(url, json,
+  request.post(url, {json},
       (error, response, body) => 
       {
           if (!error && response.statusCode == 200) {
