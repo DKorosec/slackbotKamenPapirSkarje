@@ -9,7 +9,7 @@ class Player{
   }
   toString()
   {
-      return `${this.name} ima #${this.won+this.lost+this.tied} iger, od tega #${this.won} zmag in #${this.tied} porazov.`;
+      return `${this.name} ima #${this.won+this.lost+this.tied} iger, od tega #${this.won} zmag in #${this.lost} porazov.`;
   }
 }
 
