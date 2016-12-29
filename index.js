@@ -25,7 +25,7 @@ app.post('/kps',(req,res,next)=>{
   const pick = req.body.text.toLowerCase();
   const json = rpsGame.playWith(username,pick);
 
-  res.status(200).end();
+  res.status(200).json({text: 'Izzval si igro z robotom, pricakuj odgovor.'});
 
   request.post(req.body.response_url,
     { json },
