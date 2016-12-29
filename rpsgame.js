@@ -6,6 +6,7 @@ class RPSGame {
     this.scoreTable = new ScoreTable();
     this.scoreTable.addPlayerIfNotExists(new Player(RPSGame.BotName));
   }
+  
   static pickIdToEmoji(id) {
     return [':fist:', ':hand:', ':v:'][id];
   }
