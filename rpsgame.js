@@ -37,6 +37,17 @@ class RPSGame
   {
     return [':fist:',':hand:', ':v:'][id];  
   }
+
+  getStatus()
+  {
+      var output = "";
+      for(let player in this.scoreTable.getPlayers())
+      {
+          output+=player.toString()+'\n';
+      }
+      return this._jsonResponse(output);
+  }
+
   playWith(playerName,pick)
   {
     this.scoreTable.addPlayerIfNotExists(new Player(playerName));

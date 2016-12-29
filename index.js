@@ -25,25 +25,35 @@ app.post('/kps',(req,res,next)=>{
   try
   {
     const pick = req.body.text.toLowerCase();
-    const json = rpsGame.playWith(username,pick);
-
-    res.status(200).json({text: 'Izzval si igro z robotom, pricakuj odgovor.'});
-    
-    request.post(req.body.response_url,
-      { json },
-      (error, response, body) => {
-          if (!error && response.statusCode == 200) {
-              console.log(body);
-      }
-    });
+    if(pick == 'stanje')
+    {
+      res.status(200).json({text: 'Poizvedba za tockovnik poslana'});
+      var json = rpsGame.getStatus();
+    }
+    else
+    {
+      res.status(200).json({text: 'Izzval si igro z robotom, pricakuj odgovor.'});
+      var json = rpsGame.playWith(username,pick);
+    }
+    sendResponse(req.body.response_url,json);
   }catch(excStr){
-      res.status(200).json({text: excStr});
+    res.status(200).json({text: excStr});
   }
 });
 
 app.listen(app.get('port'), ()=>{
   rpsGame = new RPSGame();
-  console.log('rps game running on port:', app.get('port'));
+  console.log('rps game tece na portu:', app.get('port'));
 });
 
+function sendResponse(url,jsonText)
+{
+  request.post(url,
+      { jsonText },
+      (error, response, body) => {
+          if (!error && response.statusCode == 200) {
+              console.log(body);
+      }
+  });
+}
 

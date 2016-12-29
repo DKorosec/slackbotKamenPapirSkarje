@@ -7,6 +7,10 @@ class Player{
     this.lost = 0;
     this.tied = 0;
   }
+  toString()
+  {
+      return `${this.name} ima ${this.won+this.lost+this.tied} iger, od tega #${this.won} zmag in #${this.tied} porazov.`;
+  }
 }
 
 class ScoreTable{
