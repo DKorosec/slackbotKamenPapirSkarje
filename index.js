@@ -19,9 +19,9 @@ app.post('/kps',(req,res,next)=>{
     res.status(200).end();
     return;
   }
-  
-  const text = req.body.text;
-  const json = rpsGame.playWith(username);
+
+  const pick = req.body.text.toLowerCase();
+  const json = rpsGame.playWith(username,pick);
 
   res.status(200).json(json);
 });
