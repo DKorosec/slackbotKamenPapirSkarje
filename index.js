@@ -12,13 +12,14 @@ app.get('/', (req, res) => {
 });
 
 app.post('/kps',(req,res,next)=>{
+  const username = req.body.user_name;
+
   if(username == "slackbot")
   { 
     res.status(200).end();
     return;
   }
-
-  const username = req.body.user_name;
+  
   const text = req.body.text;
   const json = rpsGame.playWith(username);
 
