@@ -2,7 +2,7 @@
 var RPSGame = require('./rpsgame');
 var app = require('express')();
 var bodyParser = require("body-parser");
-var request = require('request');
+var requestify = require('requestify');
 
 var rpsGame = null;
 
@@ -31,8 +31,8 @@ app.post('/kps',(req,res,next)=>{
     }
     else
     {
-      res.status(200).json({text: 'Izzval si igro z robotom, pricakuj odgovor.'});
       var json = rpsGame.playWith(username,pick);
+      res.status(200).json({text: 'Izzval si igro z robotom, pricakuj odgovor.'});
     }
     sendResponse(req.body.response_url,json);
   }catch(excStr){
@@ -47,19 +47,6 @@ app.listen(app.get('port'), ()=>{
 
 function sendResponse(url,data)
 {
-  request({
-    url:url,
-    method: 'POST',
-    json: true,
-    body: data
-  });
-  /*
-  request.post(url, {json: data},
-      (error, response, body) => 
-      {
-          if (!error && response.statusCode == 200) {
-              console.log(body);
-      }
-  });*/
+  requestify.post(url,data);
 }
 
