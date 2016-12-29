@@ -66,7 +66,7 @@ class RPSGame
           return this._jsonResponse(`@${playername} je igral neodloceno! ${playerPickemoji} = ${myPickEmoji} `);
       }
     }
-    return this._jsonResponse("Napacna izbira! Izberi 'kamen' ali 'papir' ali 'skarje'");
+    throw "Napacna izbira! Izberi 'kamen' ali 'papir' ali 'skarje'";
   }
 }
 //1D your pick, second dimension opponent pick
