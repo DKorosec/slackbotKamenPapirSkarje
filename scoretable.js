@@ -9,7 +9,7 @@ class Player{
   }
   toString()
   {
-      return `${this.name} ima ${this.won+this.lost+this.tied} iger, od tega #${this.won} zmag in #${this.tied} porazov.`;
+      return `${this.name} ima #${this.won+this.lost+this.tied} iger, od tega #${this.won} zmag in #${this.tied} porazov.`;
   }
 }
 
@@ -31,7 +31,7 @@ class ScoreTable{
   {
     var list = [];
     for(let player in this.players)
-      plist.push(player);
+      list.push(this.players[player]);
     return list;
   }
   setWin(playerName)

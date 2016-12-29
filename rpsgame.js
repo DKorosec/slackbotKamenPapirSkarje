@@ -41,7 +41,7 @@ class RPSGame
   getStatus()
   {
       var output = "";
-      for(let player in this.scoreTable.getPlayers())
+      for(let player of this.scoreTable.getPlayers())
       {
           output+=player.toString()+'\n';
       }
@@ -74,7 +74,7 @@ class RPSGame
         case RPSGame.StatusEnum.tied:
           this.scoreTable.setTie(playerName);
           this.scoreTable.setTie(RPSGame.BotName);
-          return this._jsonResponse(`@${playername} je igral neodloceno! ${playerPickemoji} = ${myPickEmoji} `);
+          return this._jsonResponse(`@${playerName} je igral neodloceno! ${playerPickemoji} = ${myPickEmoji} `);
       }
     }
     throw "Napacna izbira! Izberi 'kamen' ali 'papir' ali 'skarje'";
