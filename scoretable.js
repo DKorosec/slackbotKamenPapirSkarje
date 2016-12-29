@@ -1,50 +1,41 @@
-class Player{
-  constructor(name)
-  {
+class Player {
+  constructor(name) {
     this.name = name;
     this.won = 0;
     this.lost = 0;
     this.tied = 0;
   }
-  toString()
-  {
-      return `${this.name} ima #${this.won+this.lost+this.tied} iger, od tega #${this.won} zmag in #${this.lost} porazov.`;
+  toString() {
+    return `${this.name} ima #${this.won + this.lost + this.tied} iger, od tega #${this.won} zmag in #${this.lost} porazov.`;
   }
 }
 
-class ScoreTable{
-  constructor()
-  {
+class ScoreTable {
+  constructor() {
     this.players = {};
   }
-  addPlayerIfNotExists(player)
-  {
-    if(!this.players[player.name])
+  addPlayerIfNotExists(player) {
+    if (!this.players[player.name])
       this.players[player.name] = player;
   }
-  getPlayer(playerName)
-  {
+  getPlayer(playerName) {
     return this.players[playerName];
   }
-  getPlayers()
-  {
+  getPlayers() {
     var list = [];
-    for(let player in this.players)
+    for (let player in this.players)
       list.push(this.players[player]);
     return list;
   }
-  setWin(playerName)
-  {
+  setWin(playerName) {
     this.players[playerName].won++;
   }
-  setLost(playerName)
-  {
+  setLost(playerName) {
     this.players[playerName].lost++;
   }
-  setTie(playerName)
-  {
+  setTie(playerName) {
     this.players[playerName].tied++;
   }
 }
 
-module.exports = {Player,ScoreTable};
+module.exports = { Player, ScoreTable };

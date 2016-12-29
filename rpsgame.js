@@ -1,67 +1,55 @@
 var ScoreTable = require('./scoretable').ScoreTable;
 var Player = require('./scoretable').Player;
 
-class RPSGame
-{
-  static get BotName()
-  {
-    return "SLACK_BOT";
-  }
-  static get StatusEnum()
-  {
-    return {lost:-1,won:1,tied:0};
-  }
-  static PickIdToName(id)
-  {
-    return RPSGame._pickName[id];
-  }
-  static GameStatusToName(status)
-  {
-    return RPSGame._nameGameStatus[id+1];
-  }
-  constructor()
-  {
+class RPSGame {
+  constructor() {
     this.scoreTable = new ScoreTable();
     this.scoreTable.addPlayerIfNotExists(new Player(RPSGame.BotName));
   }
-  getRule(myPick,opponentPick)
-  {
+  static pickIdToEmoji(id) {
+    return [':fist:', ':hand:', ':v:'][id];
+  }
+
+  static PickIdToName(id) {
+    return RPSGame._pickName[id];
+  }
+
+  static GameStatusToName(status) {
+    return RPSGame._nameGameStatus[id + 1];
+  }
+
+  static get BotName() {
+    return "SLACK_BOT";
+  }
+
+  static get StatusEnum() {
+    return { lost: -1, won: 1, tied: 0 };
+  }
+
+  getRule(myPick, opponentPick) {
     return RPSGame._rules[myPick][opponentPick];
   }
-  _jsonResponse(text)
-  {
-    return {response_type: 'in_channel', text};
-  }
-  static pickIdToEmoji(id)
-  {
-    return [':fist:',':hand:', ':v:'][id];  
+
+  getStatus() {
+    var output = "";
+    for (let player of this.scoreTable.getPlayers()) {
+      output += player.toString() + '\n';
+    }
+    return this._jsonResponse(output);
   }
 
-  getStatus()
-  {
-      var output = "";
-      for(let player of this.scoreTable.getPlayers())
-      {
-          output+=player.toString()+'\n';
-      }
-      return this._jsonResponse(output);
-  }
-
-  playWith(playerName,pick)
-  {
+  playWith(playerName, pick) {
     this.scoreTable.addPlayerIfNotExists(new Player(playerName));
 
     const playerPick = RPSGame._pickName.indexOf(pick);
-    if(playerPick != -1)
-    {
-      const mypick = Math.floor(Math.random()*3);
-      const gameResultForPlayer = this.getRule(playerPick,mypick);
+    if (playerPick != -1) {
+      const mypick = Math.floor(Math.random() * 3);
+      const gameResultForPlayer = this.getRule(playerPick, mypick);
 
       var myPickEmoji = RPSGame.pickIdToEmoji(mypick);
       var playerPickemoji = RPSGame.pickIdToEmoji(playerPick);
 
-      switch(gameResultForPlayer)
-      {
+      switch (gameResultForPlayer) {
         case RPSGame.StatusEnum.won:
           this.scoreTable.setWin(playerName);
           this.scoreTable.setLost(RPSGame.BotName);
@@ -78,15 +66,19 @@ class RPSGame
     }
     throw "Napacna izbira! Izberi 'kamen' ali 'papir' ali 'skarje'";
   }
+
+  _jsonResponse(text) {
+    return { response_type: 'in_channel', text };
+  }
 }
 //1D your pick, second dimension opponent pick
 //[rock,paper,scissors]
-Object.freeze(RPSGame._nameGameStatus = ["izgubil","zmagal","neodloceno"]);
-Object.freeze(RPSGame._pickName = ["kamen","papir","skarje"]);
+Object.freeze(RPSGame._nameGameStatus = ["izgubil", "zmagal", "neodloceno"]);
+Object.freeze(RPSGame._pickName = ["kamen", "papir", "skarje"]);
 Object.freeze(RPSGame._rules = [
-  [ 0, -1,  1], //rock
-  [ 1,  0, -1], //paper
-  [-1,  1,  0]  //scissors
+  [0, -1, 1], //rock
+  [1, 0, -1], //paper
+  [-1, 1, 0]  //scissors
 ]);
 
 module.exports = RPSGame;
