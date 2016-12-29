@@ -18,8 +18,7 @@ app.post('/kps',(req,res,next)=>{
 
   if(username == "slackbot")
   { 
-    res.status(200).end();
-    return;
+    return res.status(200).end();
   }
 
   try
@@ -46,14 +45,21 @@ app.listen(app.get('port'), ()=>{
   console.log('rps game tece na portu:', app.get('port'));
 });
 
-function sendResponse(url,json)
+function sendResponse(url,data)
 {
-  request.post(url, {json},
+  request({
+    url:url,
+    method: 'POST',
+    json: true,
+    body: data
+  });
+  /*
+  request.post(url, {json: data},
       (error, response, body) => 
       {
           if (!error && response.statusCode == 200) {
               console.log(body);
       }
-  });
+  });*/
 }
 
