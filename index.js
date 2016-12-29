@@ -1,5 +1,6 @@
 "use strict"
 var RPSGame = require('./rpsgame');
+var rpsGame = null;
 var app = require('express')();
 var bodyParser = require("body-parser");
 
