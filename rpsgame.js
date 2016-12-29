@@ -31,7 +31,7 @@ class RPSGame
   }
   _jsonResponse(text)
   {
-    return {text};
+    return {response_type: 'in_channel', text};
   }
   static pickIdToEmoji(id)
   {
