@@ -26,7 +26,7 @@ app.post('/kps',(req,res,next)=>{
     const pick = req.body.text.toLowerCase();
     if(pick == 'stanje')
     {
-      res.status(200).json({text: 'Poizvedba za tockovnik poslana'});
+      res.status(200).write({text: 'Poizvedba za tockovnik poslana'});
       var json = rpsGame.getStatus();
     }
     else
