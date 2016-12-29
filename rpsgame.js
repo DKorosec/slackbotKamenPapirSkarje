@@ -1,6 +1,6 @@
 "use strict"
-var ScoreTable = require('./scoreTable').ScoreTable;
-var Player = require('./scoreTable').Player;
+var ScoreTable = require('./scoretable').ScoreTable;
+var Player = require('./scoretable').Player;
 
 class RPSGame
 {
