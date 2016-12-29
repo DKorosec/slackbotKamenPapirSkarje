@@ -32,9 +32,9 @@ app.post('/kps',(req,res,next)=>{
     else
     {
       var json = rpsGame.playWith(username,pick);
-      res.status(200).json({text: 'Izzval si igro z robotom, pricakuj odgovor.'});
+      res.status(200).write({text: 'Izzval si igro z robotom, pricakuj odgovor.'});
     }
-    sendResponse(req.body.response_url,json);
+    sendResponse(req.body.response_url,json,()=>{ res.end(); });
   }catch(excStr){
     res.status(200).json({text: excStr});
   }
@@ -45,8 +45,8 @@ app.listen(app.get('port'), ()=>{
   console.log('rps game tece na portu:', app.get('port'));
 });
 
-function sendResponse(url,data)
+function sendResponse(url,data,callback)
 {
-  requestify.post(url,data);
+  requestify.post(url,data).then((response)=>{ if(callback) callback(); });
 }
 
