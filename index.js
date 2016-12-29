@@ -4,6 +4,7 @@ var app = require('express')();
 var bodyParser = require("body-parser");
 var requestify = require('requestify');
 
+
 var rpsGame = null;
 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -26,15 +27,15 @@ app.post('/kps',(req,res,next)=>{
     const pick = req.body.text.toLowerCase();
     if(pick == 'stanje')
     {
-      res.status(200).write({text: 'Poizvedba za tockovnik poslana'});
       var json = rpsGame.getStatus();
+      res.status(200).json({text: 'Poizvedba za tockovnik poslana'});
     }
     else
     {
       var json = rpsGame.playWith(username,pick);
-      res.status(200).write({text: 'Izzval si igro z robotom, pricakuj odgovor.'});
+      res.status(200).json({text: 'Izzval si igro z robotom, pricakuj odgovor.'});
     }
-    sendResponse(req.body.response_url,json,()=>{ res.end(); });
+    sendResponse(req.body.response_url,json);
   }catch(excStr){
     res.status(200).json({text: excStr});
   }
@@ -45,8 +46,8 @@ app.listen(app.get('port'), ()=>{
   console.log('rps game tece na portu:', app.get('port'));
 });
 
-function sendResponse(url,data,callback)
+function sendResponse(url,data)
 {
-  requestify.post(url,data).then((response)=>{ if(callback) callback(); });
+  requestify.post(url,data);
 }
 
