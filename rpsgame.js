@@ -1,4 +1,3 @@
-"use strict"
 var ScoreTable = require('./scoretable').ScoreTable;
 var Player = require('./scoretable').Player;
 
