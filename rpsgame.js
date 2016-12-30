@@ -1,12 +1,12 @@
 var ScoreTable = require('./scoretable').ScoreTable;
 var Player = require('./scoretable').Player;
-
 class RPSGame {
-  constructor() {
+  constructor(state = {}) {
     this.scoreTable = new ScoreTable();
+    this.scoreTable.loadState(state);
     this.scoreTable.addPlayerIfNotExists(new Player(RPSGame.BotName));
   }
-  
+
   static pickIdToEmoji(id) {
     return [':fist:', ':hand:', ':v:'][id];
   }
@@ -22,7 +22,9 @@ class RPSGame {
   static get BotName() {
     return "SLACK_BOT";
   }
-
+  static get DbFile() {
+    return "db.json";
+  }
   static get StatusEnum() {
     return { lost: -1, won: 1, tied: 0 };
   }
@@ -67,9 +69,8 @@ class RPSGame {
     }
     throw "Napacna izbira! Izberi 'kamen' ali 'papir' ali 'skarje'";
   }
-
-  _jsonResponse(text) {
-    return { response_type: 'in_channel', text };
+  _jsonResponse(responseText) {
+    return { response_type: 'in_channel', text: responseText };
   }
 }
 //1D your pick, second dimension opponent pick

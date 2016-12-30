@@ -1,9 +1,14 @@
 class Player {
-  constructor(name) {
+  constructor(name = "") {
     this.name = name;
     this.won = 0;
     this.lost = 0;
     this.tied = 0;
+  }
+  copy(obj) {
+    for (let prop in this) {
+      this[prop] = obj[prop];
+    }
   }
   toString() {
     return `${this.name} ima #${this.won + this.lost + this.tied} iger, od tega #${this.won} zmag in #${this.lost} porazov.`;
@@ -13,6 +18,13 @@ class Player {
 class ScoreTable {
   constructor() {
     this.players = {};
+  }
+  loadState(state) {
+    for (let id in state) {
+      let player = new Player();
+      player.copy(state[id]);
+      this.players[player.name] = player;
+    }
   }
   addPlayerIfNotExists(player) {
     if (!this.players[player.name])
