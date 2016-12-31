@@ -4,6 +4,8 @@ class Player {
     this.won = 0;
     this.lost = 0;
     this.tied = 0;
+    this.currentWinStreak = 0;
+    this.maxWinStreak = 0;
   }
   copy(obj) {
     for (let prop in this) {
@@ -11,7 +13,7 @@ class Player {
     }
   }
   toString() {
-    return `${this.name} ima #${this.won + this.lost + this.tied} iger, od tega #${this.won} zmag in #${this.lost} porazov.`;
+    return `*${this.name}* \r\n > preigranih ${this.won + this.lost + this.tied} iger (zmag: ${this.won}, porazov: ${this.lost}) najvec zaporednih zmag: ${this.maxWinStreak}, trenutnih zaporednih zmag: ${this.currentWinStreak}`;
   }
 }
 
@@ -40,10 +42,15 @@ class ScoreTable {
     return list;
   }
   setWin(playerName) {
-    this.players[playerName].won++;
+    var player = this.players[playerName];
+    player.won++;
+    player.currentWinStreak++;
+    if (player.currentWinStreak > player.maxWinStreak)
+      player.maxWinStreak = player.currentWinStreak;
   }
   setLost(playerName) {
     this.players[playerName].lost++;
+    this.players[playerName].currentWinStreak = 0;
   }
   setTie(playerName) {
     this.players[playerName].tied++;

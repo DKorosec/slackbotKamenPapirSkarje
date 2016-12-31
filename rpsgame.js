@@ -15,16 +15,10 @@ class RPSGame {
     return RPSGame._pickName[id];
   }
 
-  static GameStatusToName(status) {
-    return RPSGame._nameGameStatus[id + 1];
-  }
-
   static get BotName() {
     return "SLACK_BOT";
   }
-  static get DbFile() {
-    return "db.json";
-  }
+
   static get StatusEnum() {
     return { lost: -1, won: 1, tied: 0 };
   }
@@ -75,7 +69,6 @@ class RPSGame {
 }
 //1D your pick, second dimension opponent pick
 //[rock,paper,scissors]
-Object.freeze(RPSGame._nameGameStatus = ["izgubil", "zmagal", "neodloceno"]);
 Object.freeze(RPSGame._pickName = ["kamen", "papir", "skarje"]);
 Object.freeze(RPSGame._rules = [
   [0, -1, 1], //rock
