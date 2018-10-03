@@ -1,9 +1,6 @@
 var pg = require('pg');
 
 module.exports = class SimpleStorage {
-    constructor() {
-
-    }
     readObject(callback) {
         var self = this;
         self._create((client, done) => {
