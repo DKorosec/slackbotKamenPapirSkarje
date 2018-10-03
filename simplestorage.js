@@ -23,20 +23,20 @@ module.exports = class SimpleStorage {
 
     _create(callback) {
         pg.connect(process.env.DATABASE_URL, function (err, client, done) {
-            client.query('CREATE TABLE log(id SERIAL PRIMARY KEY, json text)', function (err, result) {
+            client.query("CREATE TABLE log(id SERIAL PRIMARY KEY, json text)", function (err, result) {
                 callback(client, done);
             });
         });
     }
     _read(client, done, callback) {
-        client.query('SELECT * FROM log', function (err, result) {
+        client.query("SELECT * FROM log", function (err, result) {
             done();
             callback(result.rows);
         });
     }
     _trunc(callback) {
         pg.connect(process.env.DATABASE_URL, function (err, client, done) {
-            const query = client.query("TRUNCATE log", function (err, result) { callback(client, done); });
+            client.query("TRUNCATE log", function (err, result) { callback(client, done); });
         });
     }
     _insert(client, done, data, callback) {
