@@ -8,7 +8,7 @@ class RPSGame {
   }
 
   static pickIdToEmoji(id) {
-    return [':fist:', ':hand:', ':v:'][id];
+    return [":fist:", ":hand:", ":v:"][id];
   }
 
   static PickIdToName(id) {
